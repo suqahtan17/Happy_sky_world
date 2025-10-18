@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe — Happy Sky World</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tic-tac-toe {
+      font-family: 'Poppins', sans-serif;
+      background: #fef3c7;
+      min-height: 100vh;
+      padding: 40px 20px;
+      text-align: center;
+      color: #78350f;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: #fcc54d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: transform 0.2s;
+    }
+    .cell:hover {
+      transform: scale(1.1);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      background: #f59e0b;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #d97706;
+    }
+    #xoMessage {
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23a7f3d0'/><text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text></svg>" alt="Happy Sky Logo">
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <section class="tic-tac-toe">
+    <h2>Tic Tac Toe (XO)</h2>
+    <p>Play against the computer (medium level)!</p>
+
+    <div class="board" id="xoBoard">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+
+    <p id="xoMessage"></p>
+    <button onclick="resetXO()">Restart Game</button>
+  </section>
+   <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+
+  <script>
+    let boardState = Array(9).fill('');
+    let currentPlayer = 'X'; // Player always X
+    let gameActive = true;
+
+    const winningCombos = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6]
+    ];
+
+    function handleCellClick(e) {
+      const index = e.target.dataset.index;
+      if (boardState[index] !== '' || !gameActive || currentPlayer !== 'X') return;
+      boardState[index] = 'X';
+      e.target.textContent = 'X';
+      checkWinner();
+      if (gameActive) {
+        currentPlayer = 'O';
+        setTimeout(computerMove, 600);
+      }
+    }
+
+    function computerMove() {
+      if (!gameActive) return;
+
+      
+      const winMove = findBestMove('O');
+      if (winMove !== null) return makeMove(winMove, 'O');
+
+      const blockMove = findBestMove('X');
+      if (blockMove !== null) return makeMove(blockMove, 'O');
+
+      
+      const emptyCells = boardState.map((v, i) => v === '' ? i : null).filter(v => v !== null);
+      if (emptyCells.length === 0) return;
+      const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      makeMove(randomIndex, 'O');
+    }
+
+    function findBestMove(player) {
+      for (const combo of winningCombos) {
+        const [a,b,c] = combo;
+        const values = [boardState[a], boardState[b], boardState[c]];
+        const countPlayer = values.filter(v => v === player).length;
+        const countEmpty = values.filter(v => v === '').length;
+        if (countPlayer === 2 && countEmpty === 1) {
+          return combo[values.indexOf('')];
+        }
+      }
+      return null;
+    }
+
+    function makeMove(index, player) {
+      boardState[index] = player;
+      document.querySelector(`.cell[data-index="${index}"]`).textContent = player;
+      checkWinner();
+      currentPlayer = (player === 'O') ? 'X' : 'O';
+    }
+
+    function checkWinner() {
+      let winner = null;
+      for (const combo of winningCombos) {
+        const [a,b,c] = combo;
+        if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+          winner = boardState[a];
+          break;
+        }
+      }
+      const message = document.getElementById('xoMessage');
+      if (winner) {
+        message.textContent = `Player ${winner} wins!`;
+        message.style.color = (winner === 'O') ? 'red' : 'green';
+        gameActive = false;
+      } else if (!boardState.includes('')) {
+        message.textContent = `It's a tie!`;
+        message.style.color = 'orange';
+        gameActive = false;
+      } else {
+        message.textContent = `Player ${currentPlayer}'s turn`;
+        message.style.color = '#78350f';
+      }
+    }
+
+    function resetXO() {
+      boardState.fill('');
+      currentPlayer = 'X';
+      gameActive = true;
+      document.getElementById('xoMessage').textContent = '';
+      document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
+    }
+
+    document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>
+

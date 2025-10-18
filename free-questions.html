@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Questions Game | Happy Sky World</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #0a2540;
+    }
+
+    .free-questions {
+      padding: 50px 20px;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .fq-header h2 {
+      font-size: 2.2em;
+      color: #1e40af;
+      margin-bottom: 10px;
+    }
+
+    .fq-header p {
+      color: #334155;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+
+    .fq-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .fq-form input {
+      padding: 12px;
+      border: 2px solid #93c5fd;
+      border-radius: 10px;
+      width: 240px;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .fq-form input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 6px #60a5fa;
+    }
+
+    .fq-form button {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .fq-form button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #2563eb, #1e3a8a);
+    }
+
+    .fq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .fq-item {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .fq-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .fq-question {
+      font-weight: 600;
+      color: #1e3a8a;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .fq-answer {
+      display: none;
+      color: #2563eb;
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .show-btn {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .show-btn:hover {
+      background: #bae6fd;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img
+          src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23a7f3d0'/><text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text></svg>"
+          alt="Happy Sky Logo"
+        />
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <section class="free-questions">
+    <div class="fq-header">
+      <h2>Free Questions Game</h2>
+      <p>
+        Create your own questions and answers — then show or hide the answers
+        with one click.
+      </p>
+    </div>
+
+    <div class="fq-form">
+      <input type="text" id="questionInput" placeholder="Enter your question" />
+      <input type="text" id="answerInput" placeholder="Enter the answer" />
+      <button onclick="addQuestion()">Add Question</button>
+    </div>
+
+    <div class="fq-list" id="fqList"></div>
+  </section>
+   <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+
+  <script>
+    let questions = [];
+
+    function addQuestion() {
+      const q = document.getElementById("questionInput").value.trim();
+      const a = document.getElementById("answerInput").value.trim();
+      if (!q || !a) return alert("Please fill both question and answer.");
+
+      const questionObj = { question: q, answer: a };
+      questions.push(questionObj);
+      renderQuestions();
+
+      document.getElementById("questionInput").value = "";
+      document.getElementById("answerInput").value = "";
+    }
+
+    function renderQuestions() {
+      const list = document.getElementById("fqList");
+      list.innerHTML = "";
+      questions.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "fq-item";
+        div.innerHTML = `
+          <div class="fq-question">Q${index + 1}: ${item.question}</div>
+          <button class="show-btn" onclick="toggleAnswer(${index})">Show Answer</button>
+          <div class="fq-answer" id="answer-${index}">${item.answer}</div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function toggleAnswer(i) {
+      const answer = document.getElementById(`answer-${i}`);
+      const btn = answer.previousElementSibling;
+      if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block";
+        btn.textContent = "Hide Answer";
+      } else {
+        answer.style.display = "none";
+        btn.textContent = "Show Answer";
+      }
+    }
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>
+

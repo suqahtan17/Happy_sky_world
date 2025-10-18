@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Count the Shapes | Happy Sky World</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fff7ed, #fffbeb);
+      color: #374151;
+      text-align: center;
+    }
+
+    .count-shapes {
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: #b45309;
+      font-size: 1.9rem;
+      margin: 0 0 10px;
+    }
+
+    .lead {
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+   
+    .shapes-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 15px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+      width: 90%;
+      max-width: 720px;
+      height: 110px; 
+      scroll-behavior: smooth;
+    }
+
+    .shapes-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .shapes-container::-webkit-scrollbar-thumb {
+      background: #facc15;
+      border-radius: 4px;
+    }
+
+    .shape {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 35px solid transparent;
+      border-right: 35px solid transparent;
+      border-bottom: 70px solid #4ade80;
+      background: none;
+      box-shadow: none;
+      flex-shrink: 0;
+    }
+
+    .answer-box {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .answer-box input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #f3e8cc;
+      width: 140px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .answer-box button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #fbbf24;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    .answer-box button:hover {
+      background: #f59e0b;
+      transform: translateY(-2px);
+    }
+
+    #feedback {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img src="data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'>
+          <circle cx='50' cy='50' r='48' fill='%23a7f3d0'/>
+          <text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text>
+        </svg>" alt="Happy Sky Logo">
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <section class="count-shapes">
+    <h2>Count the Shapes</h2>
+    <p class="lead">Count the shapes below and enter your answer.</p>
+
+    <div class="shapes-container" id="shapesContainer"></div>
+
+    <div class="answer-box">
+      <input type="number" id="userCount" placeholder="Enter number" />
+      <button onclick="checkCount()">Check</button>
+      <button onclick="newRound()">New Round</button>
+    </div>
+
+    <p id="feedback"></p>
+  </section>
+   <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+
+  <script>
+    let totalShapes = 0;
+
+    const shapeStyles = [
+      { type: "square", color: "#fbbf24" },   
+      { type: "circle", color: "#ef4444" }, 
+      { type: "triangle", color: "#4ade80" }, 
+      { type: "square", color: "#3b82f6" },   
+      { type: "circle", color: "#a855f7" }   
+    ];
+
+    function newRound() {
+      const container = document.getElementById("shapesContainer");
+      container.innerHTML = "";
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("userCount").value = "";
+
+      totalShapes = Math.floor(Math.random() * 8) + 5;
+      const randomStyle = shapeStyles[Math.floor(Math.random() * shapeStyles.length)];
+
+      for (let i = 0; i < totalShapes; i++) {
+        const div = document.createElement("div");
+
+        if (randomStyle.type === "triangle") {
+          div.className = "shape triangle";
+          div.style.borderBottomColor = randomStyle.color;
+        } else {
+          div.className = "shape";
+          div.style.background = randomStyle.color;
+          div.style.borderRadius = randomStyle.type === "circle" ? "50%" : "12px";
+        }
+
+        container.appendChild(div);
+      }
+    }
+
+    function checkCount() {
+      const userValue = parseInt(document.getElementById("userCount").value);
+      const feedback = document.getElementById("feedback");
+
+      if (isNaN(userValue)) {
+        feedback.textContent = "Please enter a number.";
+        feedback.style.color = "#b91c1c";
+        return;
+      }
+
+      if (userValue === totalShapes) {
+        feedback.textContent = ` Correct! There are ${totalShapes} shapes.`;
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = ` Wrong — there are actually ${totalShapes}.`;
+        feedback.style.color = "red";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", newRound);
+  </script>
+</body>
+</html>
+
+
+    
+

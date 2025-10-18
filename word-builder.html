@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+     <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23a7f3d0'/><text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text></svg>" alt="Happy Sky Logo">
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+    <section class="word-builder">
+  <h2>Word Builder Game</h2>
+  <p>Guess the word by selecting the correct letters!</p>
+
+  <div class="setup">
+    <input type="text" id="wordInput" placeholder="Enter the word" />
+    <input type="file" id="imageInput" accept="image" />
+    <button onclick="startWordGame()">Start Game</button>
+  </div>
+
+  <div class="game-board" id="wbBoard"></div>
+  <p id="wbFeedback"></p>
+</section>
+ <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+</body>
+</html>
+
+<style>
+.word-builder {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  min-height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+  color: #4b0082;
+}
+.setup input {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  border: 1px solid #c4b5fd;
+}
+.setup button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background: #a78bfa;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.setup button:hover {
+  background: #7c3aed;
+}
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.letter {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0c7ff;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.2em;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+}
+.letter:hover {
+  transform: scale(1.1);
+}
+#wbFeedback {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+</style>
+
+<script>
+let originalWord = '';
+let mixedLetters = [];
+let selectedWord = '';
+
+function startWordGame() {
+  const word = document.getElementById('wordInput').value.trim().toUpperCase();
+  if(!word) return alert('Please enter a word.');
+  originalWord = word;
+  selectedWord = '';
+
+  // Mix word letters with extra random letters
+  const extraLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  mixedLetters = word.split('');
+  while(mixedLetters.length < word.length + 5) {
+    const randLetter = extraLetters[Math.floor(Math.random()*extraLetters.length)];
+    mixedLetters.push(randLetter);
+  }
+  mixedLetters.sort(() => 0.5 - Math.random());
+
+  renderLetters();
+  document.getElementById('wbFeedback').textContent = '';
+}
+
+function renderLetters() {
+  const board = document.getElementById('wbBoard');
+  board.innerHTML = '';
+  mixedLetters.forEach((letter, index) => {
+    const div = document.createElement('div');
+    div.className = 'letter';
+    div.textContent = letter;
+    div.onclick = () => selectLetter(letter, div);
+    board.appendChild(div);
+  });
+}
+
+function selectLetter(letter, element) {
+  selectedWord += letter;
+  element.style.visibility = 'hidden';
+  if(selectedWord.length === originalWord.length) {
+    if(selectedWord === originalWord) {
+      document.getElementById('wbFeedback').textContent = 'Correct! 🎉';
+      document.getElementById('wbFeedback').style.color = 'green';
+    } else {
+      document.getElementById('wbFeedback').textContent = 'Incorrect, try again. 😅';
+      document.getElementById('wbFeedback').style.color = 'red';
+      // reset letters
+      selectedWord = '';
+      setTimeout(renderLetters, 1000);
+    }
+  }
+}
+</script>

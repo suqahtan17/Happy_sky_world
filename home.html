@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home — Happy Sky World</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+.home {
+  text-align: center;
+  padding: 40px;
+}
+.animated-shapes div {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  animation: float 5s ease-in-out infinite;
+}
+.balloon { background: pink; border-radius: 50%; }
+.circle { background: yellow; border-radius: 50%; }
+.triangle { width: 0; height: 0; border-left: 25px solid transparent; border-right: 25px solid transparent; border-bottom: 50px solid lightgreen; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+</style>
+<body class="page page-home">
+  
+    
+  <section class="home">
+  <h1>Welcome to Happy Sky World!</h1>
+  <p>Enjoy fun, learning, and creativity through our joyful games and templates.</p>
+  <div class="animated-shapes">
+    <div class="balloon"></div>
+    <div class="circle"></div>
+    <div class="triangle"></div>
+  </div>
+</section>
+<script src="scripts.js"></script>
+</body>
+</html>

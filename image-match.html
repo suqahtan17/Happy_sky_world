@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+     <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23a7f3d0'/><text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text></svg>" alt="Happy Sky Logo">
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+    <section class="image-match">
+  <h2>Image Match Game</h2>
+  <p>Match each pair of images correctly!</p>
+
+  <div class="upload-section">
+    <input type="file" id="imageUpload" multiple accept="image" />
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <div class="game-board" id="gameBoard"></div>
+</section>
+ <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+</body>
+</html>
+
+<style>
+.image-match {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: #1e293b;
+  text-align: center;
+}
+.upload-section {
+  margin-bottom: 25px;
+}
+.upload-section input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  margin-right: 10px;
+}
+.upload-section button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.upload-section button:hover {
+  background: #2563eb;
+}
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  max-width: 600px;
+  margin: auto;
+}
+.card {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+.card.matched img {
+  display: block;
+  border: 2px solid #10b981;
+}
+.card.flipped img {
+  display: block;
+}
+</style>
+
+<script>
+let images = [];
+let gameCards = [];
+let firstCard = null;
+let secondCard = null;
+
+function startGame() {
+  const input = document.getElementById('imageUpload');
+  if(input.files.length < 1) return alert('Please select at least one image.');
+
+  images = [];
+  for(const file of input.files) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      images.push(e.target.result);
+      if(images.length === input.files.length) setupBoard();
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function setupBoard() {
+  const board = document.getElementById('gameBoard');
+  board.innerHTML = '';
+  gameCards = [];
+  const pairImages = [...images, ...images]; // duplicate
+
+  pairImages.sort(() => 0.5 - Math.random()); // shuffle
+
+  pairImages.forEach((src, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const img = document.createElement('img');
+    img.src = src;
+    card.appendChild(img);
+    card.addEventListener('click', () => flipCard(card, src));
+    board.appendChild(card);
+    gameCards.push(card);
+  });
+}
+
+function flipCard(card, src) {
+  if(card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  card.classList.add('flipped');
+  if(!firstCard) {
+    firstCard = { card, src };
+  } else {
+    secondCard = { card, src };
+    setTimeout(checkMatch, 800);
+  }
+}
+
+function checkMatch() {
+  if(firstCard.src === secondCard.src) {
+    firstCard.card.classList.add('matched');
+    secondCard.card.classList.add('matched');
+  } else {
+    firstCard.card.classList.remove('flipped');
+    secondCard.card.classList.remove('flipped');
+  }
+  firstCard = null;
+  secondCard = null;
+}
+</script>

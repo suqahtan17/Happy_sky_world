@@ -1,0 +1,291 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login — Happy Sky World</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: serif, sans-serif;
+    }
+    .borderbox{
+       display: flex;
+       padding-top: 10px;
+        padding-bottom: 10px;
+        justify-content: center;
+        align-items: center;
+        min-height: 10vh;
+        background: #e6fbff;
+    }
+    .box-sign{
+        position: relative;
+        width: 380px;
+        height: 420px;
+        background: #211846;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .box-sign::before{
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 380px;
+        height: 420px;
+        background: linear-gradient(0deg, transparent, transparent,#2f97f2,#2f97f2,#2f97f2);
+        z-index: 1;
+        transform-origin: bottom right;
+        animation: animate 6s linear infinite;
+    }
+    .box-sign::after{
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 380px;
+        height: 420px;
+        background: linear-gradient(0deg, transparent, transparent,#2f97f2,#2f97f2,#2f97f2);
+        z-index: 1;
+        transform-origin: bottom right;
+        animation: animate 6s linear infinite;
+        animation-delay: -3s;
+    }
+    .borderline{
+        position: absolute;
+        top: 0;
+        inset: 0;
+    }
+    .borderline::before{
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 380px;
+        height: 420px;
+        background: linear-gradient(0deg, transparent, transparent,#b027ff,#2f97f2,#2f97f2);
+        z-index: 1;
+        transform-origin: bottom right;
+        animation: animate 6s linear infinite;
+        animation-delay: -1.5s;
+
+    }
+    .borderline::after{
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 380px;
+        height: 420px;
+        background: linear-gradient(0deg, transparent, transparent,#b027ff,#2f97f2,#2f97f2);
+        z-index: 1;
+        transform-origin: bottom right;
+        animation: animate 6s linear infinite;
+        animation-delay: -4.5s;
+       
+
+    }
+    @keyframes animate{
+        0%
+        {
+            transform: rotate(0deg);
+        }
+        100%
+        {
+            transform: rotate(360deg);
+        }
+    }
+    .box-sign form{
+        position: absolute;
+        inset: 4px;
+        background: #211846;
+        padding: 50px 40px;
+        border-radius: 8px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+    }
+    .box-sign form h1{
+        color: #fff;
+        font-weight: 500;
+        text-align: center;
+        letter-spacing: 0.1em;
+    }
+    .box-sign form .inputbox{
+        position: relative;
+        width: 300px;
+        margin-top: 35px;
+    }
+    .box-sign form .inputbox input{
+        position: relative;
+        width: 100%;
+       padding: 20px 10px 10px;
+       background: transparent;
+       outline: none;
+       border: none;
+       box-shadow:none ;
+       color: #23242a;
+       font-size: 1em;
+       letter-spacing: 0.05em;
+       transition: 0.5s;
+       z-index: 10 ;
+    }
+    .box-sign form .inputbox span{
+        position:absolute ;
+        left: 0;
+        padding: 20px 0px 10px;
+        pointer-events: none;
+        color: #8f8f8f;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+    }
+    .box-sign form .inputbox input:valid ~ span,
+    .box-sign form .inputbox input:focus ~ span
+    {
+        color: #fff;
+        font-size: 0.75em;
+        transform: translateY(-34px);
+    }
+    
+    .box-sign form .inputbox i{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+
+    }
+    .box-sign form .inputbox input:valid ~ i,
+    .box-sign form .inputbox input:focus ~ i
+    {  height: 44px;
+    }
+    .box-sign form .links {
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .box-sign form .links a{
+        margin: 10px 0 ;
+        font-size: 0.75em;
+        color: #8f8f8f;
+        text-decoration: none;
+        transition: 0.7s ease;
+    }
+    .box-sign form .links a:hover,
+    .box-sign form .links a:nth-child(2)
+    {
+        color: #fff;
+    }
+    .box-sign form input[type="submit"]{
+        border: none;
+        outline: none;
+        padding: 9px 25px;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.9em;
+        border-radius: 4px;
+        font-weight: 600;
+        width: 100px;
+        margin-top: 10px;
+
+
+    }
+    .box-sign form input[type="submit"]:active{
+        opacity: 0.8;
+    }
+</style>
+<body class="page page-login">
+     <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="home.html">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23a7f3d0'/><text x='50' y='58' font-size='28' text-anchor='middle' fill='%23106b3a' font-family='Arial'>HS</text></svg>" alt="Happy Sky Logo">
+        <span class="site-title">Happy Sky World</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html">Home</a>
+        <a href="templates.html">Templates</a>
+        <a href="games.html">Games</a>
+        <a href="mygames.html" class="requires-auth">My Games</a>
+        <a href="login.html" id="authLink" class="auth-link">Login</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+   <section class="borderbox">
+        <div class="box-sign">
+            <span class="borderline"></span>
+           <form >
+            <h1>sign in</h1>
+            <div class="inputbox">
+                <input type="text" required="required">
+                <span>username</span>
+                <i></i>
+            </div>
+            <div class="inputbox">
+                <input type="password" required="required">
+                <span>password</span>
+                <i></i>
+            </div>
+            
+            <div class="links">
+                <a href="#">forgot password</a>
+                <a href="#">signup</a>
+            </div>
+            <input type="submit" value="login">
+           </form>
+
+        </div>
+    </section>
+     
+
+    <!--end log in-->
+
+ <section class="footer" id="footer">
+        <div class="box-info">
+            <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <p>+966 5000000</p>
+                <a href="#" class="link">Happy_sky_world@gmail.com</a>
+            </div>
+            <div class="box">
+                <h3>Localization</h3>
+                <p>Saudia Arabia</p>
+            </div>
+
+            
+
+
+        </div>
+        <div class="create">
+            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+        </div>
+
+    </section>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
