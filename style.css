@@ -3,7 +3,9 @@
   --bg:#c3e6fc8b; --accent:#06b6d4; --muted:#fbfbfb; --card:#ffffff;
 }
 *{
-    box-sizing:border-box
+    box-sizing:border-box;
+    font-family: serif
+
 }
 html,body{
     height:100%
@@ -40,6 +42,10 @@ body{
     height:44px;
     border-radius:8px
 }
+.logo span{
+    color: #ffffff;
+    font-family: serif;
+}
 .site-title{
     
     font-weight:700;
@@ -51,12 +57,13 @@ body{
     align-items:center
 }
 .main-nav a{
+    color: #ffffff;
     padding:8px 12px;
     text-decoration:none;
     border-radius:8px
 }
 .main-nav a:hover{
-    background:#e6f6fb
+    background:#4b9de686
 }
 .menu-toggle{
     display:none;
@@ -320,6 +327,5 @@ nav.open ul {
 }
 
 /* end of styles */
-
 
 
