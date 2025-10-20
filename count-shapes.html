@@ -1,15 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Count the Shapes | Happy Sky World</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #fff7ed, #fffbeb);
+      background: linear-gradient(135deg, #bbf1feea, #94c5fdb1);
       color: #374151;
       text-align: center;
     }
@@ -23,7 +23,7 @@
     }
 
     h2 {
-      color: #b45309;
+      color: #0636b1;
       font-size: 1.9rem;
       margin: 0 0 10px;
     }
@@ -33,31 +33,20 @@
       color: #555;
     }
 
-   
     .shapes-container {
       display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
+      flex-wrap: nowrap;
+      justify-content: center;
       align-items: center;
       gap: 15px;
       overflow-x: auto;
-      overflow-y: hidden;
       background: #ffffff;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
       width: 90%;
       max-width: 720px;
-      height: 110px; 
-      scroll-behavior: smooth;
-    }
-
-    .shapes-container::-webkit-scrollbar {
-      height: 6px;
-    }
-    .shapes-container::-webkit-scrollbar-thumb {
-      background: #facc15;
-      border-radius: 4px;
+      min-height: 100px;
     }
 
     .shape {
@@ -67,15 +56,15 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
+    /* Triangle shape */
     .triangle {
       width: 0;
       height: 0;
       border-left: 35px solid transparent;
       border-right: 35px solid transparent;
       border-bottom: 70px solid #4ade80;
-      background: none;
       box-shadow: none;
-      flex-shrink: 0;
+      background: none;
     }
 
     .answer-box {
@@ -99,7 +88,7 @@
       padding: 10px 16px;
       border-radius: 8px;
       border: none;
-      background: #fbbf24;
+      background: #24a8fb;
       color: white;
       font-weight: 700;
       cursor: pointer;
@@ -107,7 +96,7 @@
     }
 
     .answer-box button:hover {
-      background: #f59e0b;
+      background: #700bf579;
       transform: translateY(-2px);
     }
 
@@ -116,11 +105,70 @@
       font-weight: 700;
       font-size: 1.1rem;
     }
+   .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between
+}
+.site-header{
+    background:linear-gradient(90deg,#443485,#785fdbe6);
+    padding:12px 0
+}
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:inherit
+}
+.logo img{
+    width:44px;
+    height:44px;
+    border-radius:8px
+}
+.logo span{
+    color: #ffffff;
+    font-family: serif;
+}
+.site-title{
+    
+    font-weight:700;
+    font-size:18px
+}
+.main-nav{
+    display:flex;
+    gap:12px;
+    align-items:center
+}
+.main-nav a{
+    color: #ffffff;
+    padding:8px 12px;
+    text-decoration:none;
+    border-radius:8px
+}
+.main-nav a:hover{
+    background:#4b9de686
+}
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:22px
+}
+
+.main-content{
+    padding:20px
+}
+iframe#pageFrame{
+    width:100%;
+    height:70vh;
+    border-radius:12px;
+    box-shadow:0 8px 30px rgba(206, 214, 250, 0.336)
+}
   </style>
 </head>
 <body>
-    <!--
-  <header class="site-header">
+    <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="home.html">
         <img src="data:image/svg+xml;utf8,
@@ -142,8 +190,6 @@
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
     </div>
   </header>
-  -->
-
   <section class="count-shapes">
     <h2>Count the Shapes</h2>
     <p class="lead">Count the shapes below and enter your answer.</p>
@@ -159,30 +205,36 @@
     <p id="feedback"></p>
   </section>
   
-        <div class="create">
-            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
-        </div>
+<script>
+  // Select the toggle button and the navigation menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
 
-   
+  // Add a click event to show/hide the menu
+  menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
+</script>
 
   <script>
     let totalShapes = 0;
 
     const shapeStyles = [
-      { type: "square", color: "#fbbf24" },   
-      { type: "circle", color: "#ef4444" }, 
-      { type: "triangle", color: "#4ade80" }, 
-      { type: "square", color: "#3b82f6" },   
-      { type: "circle", color: "#a855f7" }   
+      { type: "square", color: "#fbbf24" },   // orange square
+      { type: "circle", color: "#ef4444" },   // red circle
+      { type: "triangle", color: "#4ade80" }, // green triangle
+      { type: "square", color: "#3b82f6" },   // blue square
+      { type: "circle", color: "#a855f7" }    // purple circle
     ];
 
+    // Create a new round with random shape type and color
     function newRound() {
       const container = document.getElementById("shapesContainer");
-      container.innerHTML = "";
+      container.innerHTML = ""; // clear old shapes
       document.getElementById("feedback").textContent = "";
       document.getElementById("userCount").value = "";
 
-      totalShapes = Math.floor(Math.random() * 8) + 5;
+      totalShapes = Math.floor(Math.random() * 8) + 5; // 5–12 shapes
       const randomStyle = shapeStyles[Math.floor(Math.random() * shapeStyles.length)];
 
       for (let i = 0; i < totalShapes; i++) {
@@ -220,10 +272,11 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", newRound);
+    window.addEventListener("DOMContentLoaded", newRound);
   </script>
 </body>
 </html>
+
 
 
     

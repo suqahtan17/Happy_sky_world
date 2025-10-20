@@ -19,7 +19,7 @@
   gap: 15px;
 }
 .subframe {
-  width: 100%;
+  width: 50%;
   height: 70vh;
   border: none;
   margin-top: 20px;
@@ -80,6 +80,16 @@
   </div>
 
 
+<script>
+  // Select the toggle button and the navigation menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  // Add a click event to show/hide the menu
+  menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
+</script>
 
 <script>
 function openGame(page) {

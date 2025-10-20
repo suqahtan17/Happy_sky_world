@@ -8,11 +8,11 @@
   <style>
     .tic-tac-toe {
       font-family: 'Poppins', sans-serif;
-      background: #fef3c7;
+      background: #b2e8ff;
       min-height: 100vh;
       padding: 40px 20px;
       text-align: center;
-      color: #78350f;
+      color: #002a4b;
     }
     .board {
       display: grid;
@@ -24,7 +24,7 @@
     .cell {
       width: 100px;
       height: 100px;
-      background: #fcc54d;
+      background: #4da2fc;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -41,14 +41,14 @@
       padding: 10px 15px;
       border-radius: 8px;
       border: none;
-      background: #f59e0b;
+      background: #0b8cf5;
       color: white;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s;
     }
     button:hover {
-      background: #d97706;
+      background: #801ef0a7;
     }
     #xoMessage {
       margin-top: 15px;
@@ -179,11 +179,11 @@
         gameActive = false;
       } else if (!boardState.includes('')) {
         message.textContent = `It's a tie!`;
-        message.style.color = 'orange';
+        message.style.color = 'blue';
         gameActive = false;
       } else {
         message.textContent = `Player ${currentPlayer}'s turn`;
-        message.style.color = '#78350f';
+        message.style.color = '#002a4b';
       }
     }
 
@@ -197,6 +197,17 @@
 
     document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
   </script>
+  
+<script>
+  // Select the toggle button and the navigation menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  // Add a click event to show/hide the menu
+  menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
+</script>
   <script src="scripts.js"></script>
 </body>
 </html>

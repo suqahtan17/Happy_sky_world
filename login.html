@@ -283,6 +283,16 @@
 
     </section>
 
+<script>
+  // Select the toggle button and the navigation menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  // Add a click event to show/hide the menu
+  menuToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+  });
+</script>
   <script src="scripts.js"></script>
 </body>
 </html>
