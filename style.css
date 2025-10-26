@@ -83,7 +83,6 @@ iframe#pageFrame{
 }
 
 
-*/
 /* Cards */
 .card-grid{
     display:grid;
@@ -240,39 +239,48 @@ nav.open ul {
   display: block;
 }
 /*footer*/
-.footer {
-    background: #231e53;
-    text-align: center;
+.site-footer{
+    margin-top:24px;
+    padding:18px 0;
+    background:linear-gradient(90deg,#231e53,#372f78);
+    color:white;
+    text-align: center
+}
+.footer-inner{
+    display:flex;
+    gap:20px;
+    justify-content:space-between;
+    align-items:center
+}
+.footer-inner h4{
+    margin:0
+}
+.footer-inner p{
+    margin:6px 0
 }
 
-.footer .box-info {
-    display: flex;
-    padding-left: 10em;
-    
-   
-}
-.footer .box-info .box{
+.footer-inner  .box{
     padding-left: 10em;
 }
-.footer .box-info .box h3 {
+.footer-inner .box h3 {
     font-size: 20px;
     text-transform: capitalize;
     color: white;
     padding: 1rem 0;
 }
 
-.footer .box-info .box p {
+.footer-inner .box p {
     font-size: 15px;
     line-height: 2;
     color: white;
     padding: 1rem 0;
 }
 
-.footer .box-info .box .share {
+.footer-inner .box .share {
     margin-top: 1rem;
 }
 
-.footer .box-info .box .share a {
+.footer-inner .box .share a {
     height: 20px;
     width: 20px;
     line-height: 17px;
@@ -285,12 +293,12 @@ nav.open ul {
     transition: 0.7s ease;
 }
 
-.footer .box-info .box .share a:hover {
+.footer-inner .box .share a:hover {
     background-color: #af9bff;
     
 }
 
-.footer .box-info .box .link {
+.footer-inner .box .link {
     font-size: 20px;
     line-height: 2;
     color: white ;
@@ -299,11 +307,11 @@ nav.open ul {
     transition: 0.7s ease;
 }
 
-.footer .box-info .box .link:hover {
+.footer-inner .box .link:hover {
     color: #9e9bff;
     text-decoration: underline;
 }
-.footer .box-info .box .email {
+.footer-inner .box .email {
     width: 100%;
     padding: 1.2rem 1.4rem;
     font-size: 1.6rem;
@@ -311,7 +319,7 @@ nav.open ul {
     margin-bottom: 1rem;
 }
 
-.footer .create {
+.site-footer .create {
     font-family: cursive sans-serif;
     text-align: center;
     margin-top: 3rem;
@@ -322,8 +330,7 @@ nav.open ul {
     color: #444;
     border-top: 0.1rem solid white;
 }
-
-.footer .create span {
+.footer-inner .create span {
     color: white;
 }
 

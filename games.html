@@ -4,13 +4,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title>Games — Happy Sky World</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="page page-games">
      <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="home.html">
+      <a class="logo" href="index.html">
        <img src="imag/s (3).png" alt="Happy Sky Logo">
         <span class="site-title">Happy Sky World</span>
       </a>
@@ -40,13 +41,40 @@
 
     </div>
   </div>
-  
-        <div class="create">
-            <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+    
+ <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <h4>About Us</h4>
+        <p>Happy Sky World — playful educational games and templates for kids.</p>
+      </div>
+      <div class="box">
+                <h3> Find us here </h3>
+                <p>Our Page on Social Media </p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
         </div>
+      <div  class="box">
 
+        <h4>Contact</h4>
+        <p > <a href="#" class="link">Happy_sky_world@gmail.com</a></p>
+      </div>
+    </div>
+      <div class="create">
+        <p>© <span id="year">2025</span> Happy Sky World | All Rights Reserved</p>
+      </div>
+   
+  </footer>
    
 <script>
+    // Optional: highlight current page
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mainNav').classList.toggle('open');
+});
   // Select the toggle button and the navigation menu
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');

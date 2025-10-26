@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Document</title>
   <link rel="stylesheet" href="style.css">
 
@@ -10,7 +11,7 @@
 <body>
      <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="home.html">
+      <a class="logo" href="index.html">
        <img src="imag/s (3).png" alt="Happy Sky Logo">
         <span class="site-title">Happy Sky World</span>
       </a>
@@ -44,6 +45,10 @@
 
     
 <script>
+    // Optional: highlight current page
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mainNav').classList.toggle('open');
+});
   // Select the toggle button and the navigation menu
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');
